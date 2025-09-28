@@ -7,7 +7,7 @@ from torch import nn
 from torch.utils.data import DataLoader 
 from torchvision import datasets 
 from torchvision.transforms import ToTensor, Normalize, RandomCrop, RandomHorizontalFlip, Compose 
-from contextualizer import Contextualizer
+from contextualizer_proj import Contextualizer
 
 # data transforms
 
