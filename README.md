@@ -1,5 +1,5 @@
 # Contextualizer
-Contextualizer: A Sampling Based Alternative to Attention Mechanism in Transformers 
+A Sampling Based Alternative to Attention Mechanism in Transformers 
 
 Abdullah Nazhat Abdullah, Tarkan Aydin
 
