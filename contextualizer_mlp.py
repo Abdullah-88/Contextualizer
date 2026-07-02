@@ -4,7 +4,6 @@ from torch import nn
 
 
 
-
 class FeedForward(nn.Module):
     def __init__(self, dim, hidden_dim, dropout):
         super().__init__()
@@ -24,10 +23,8 @@ class FeedForward(nn.Module):
 
 
 
-
-
 class ContextualizerBlock(nn.Module):
-    def __init__(self, d_model,d_ffn,dropout,num_tokens):
+    def __init__(self, d_model, d_ffn, dropout, num_tokens):
         super().__init__()
         
         self.context_mlp = FeedForward(d_model,d_ffn,dropout)
@@ -59,10 +56,10 @@ class ContextualizerBlock(nn.Module):
         x = self.mlp(x)
         out = x + res
         return out 
-        return 
+       
     
 class Contextualizer(nn.Module):
-    def __init__(self, d_model, d_ffn, num_layers,dropout,num_tokens):
+    def __init__(self, d_model, d_ffn, num_layers, dropout, num_tokens):
         super().__init__()
         
         self.model = nn.Sequential(
