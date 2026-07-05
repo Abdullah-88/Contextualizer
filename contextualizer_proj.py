@@ -54,7 +54,7 @@ class Contextualizer(nn.Module):
         
         self.model = nn.Sequential(
             
-            *[ContextualizerBlock(d_model,d_ffn,dropout,num_tokens) for _ in range(num_layers)],
+            *[ContextualizerBlock(d_model, d_ffn, dropout, num_tokens) for _ in range(num_layers)],
                
         )
 
