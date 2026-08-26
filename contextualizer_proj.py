@@ -18,11 +18,11 @@ class ContextualizerBlock(nn.Module):
     def __init__(self, d_model, d_ffn, dropout, num_tokens):
         super().__init__()
         
-        self.context_proj =  nn.Linear(d_model,d_model)
-        self.mlp = FeedForward(d_model,d_ffn,dropout)     
+        self.context_proj =  nn.Linear(d_model, d_model)
+        self.mlp = FeedForward(d_model, d_ffn, dropout)     
         self.norm = nn.LayerNorm(d_model)       
-        self.upsample = nn.Upsample(scale_factor=num_tokens,mode='nearest')
-        self.downsample = nn.Upsample(scale_factor= 1/num_tokens, mode='nearest')
+        self.upsample = nn.Upsample(scale_factor = num_tokens, mode = 'nearest')
+        self.downsample = nn.Upsample(scale_factor = 1 / num_tokens, mode = 'nearest')
     def forward(self, x):
         res = x
         x = self.norm(x)
@@ -31,15 +31,15 @@ class ContextualizerBlock(nn.Module):
         dim0 = context.shape[0]
         dim1 = context.shape[1]
         dim2 = context.shape[2]
-        context = context.reshape([dim0,1,dim1*dim2])
+        context = context.reshape([dim0, 1, dim1 * dim2])
         
         context = self.downsample(context)
-        context = context.reshape([dim0,dim2])
+        context = context.reshape([dim0, dim2])
         context = self.context_proj(context)
         
-        context = context.reshape([dim0,1,dim2])
+        context = context.reshape([dim0, 1, dim2])
         context = self.upsample(context)
-        context = context.reshape([dim0,dim1,dim2]) 
+        context = context.reshape([dim0, dim1, dim2]) 
         x = context
         x = x + res  
         res = x
@@ -55,7 +55,7 @@ class Contextualizer(nn.Module):
         self.model = nn.Sequential(
             
             *[ContextualizerBlock(d_model, d_ffn, dropout, num_tokens) for _ in range(num_layers)],
-               
+                        
         )
 
     def forward(self, x):
@@ -63,4 +63,3 @@ class Contextualizer(nn.Module):
         x = self.model(x)
         
         return x
-              
